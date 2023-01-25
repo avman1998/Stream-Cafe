@@ -1,4 +1,4 @@
-export const DATA_API = "AIzaSyCZFx77UHQ_AWiuRVTPZXVU6ZMmEOBpKDQ";
+export const DATA_API = "AIzaSyCgTMvP2KORvN4PDT7cTceuSXH3QMUqDxs";
 export const burgerStyle = {
   bmBurgerButton: {
     position: "absolute",
