@@ -19,40 +19,53 @@ function VideoCard({ item }) {
 export default function Body() {
   const [search, setSearch] = useState("");
   const [videos, setVideos] = useState([]);
-  // useEffect(() => {
-  //   async function getVideos() {
-  //     const data = await fetch(
-  //       `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelType=any&maxResults=50&q=trending&videoType=any&key=${DATA_API}`
-  //     );
-  //     const json = await data.json();
-  //     // console.log(json);
-  //     setVideos(json?.items);
-  //     setSearch("");
-  //     console.log(videos);
-  //   }
-  //   getVideos();
-  //   // console.log(json);
-  // }, []);
+  const options = {
+    method: "GET",
+    headers: {
+      "X-RapidAPI-Key": "a760903f0dmsh0ff0c07d17f9a99p130fffjsn4c276a048d96",
+      "X-RapidAPI-Host": "youtube-v31.p.rapidapi.com",
+    },
+  };
+  useEffect(() => {
+    async function getVideos() {
+      const data = await fetch(
+        `https://youtube-v31.p.rapidapi.com/search?q=music&part=snippet%2Cid&regionCode=US&maxResults=48&order=date`,
+        options
+      );
+      const json = await data.json();
+      // console.log(json);
+      setVideos(json?.items);
+      setSearch("");
+      // console.log(videos);
+    }
+    getVideos();
+    // console.log(json);
+  }, []);
+
   async function getVideos() {
     const data = await fetch(
-      `https://youtube.googleapis.com/youtube/v3/search?part=snippet&channelType=any&maxResults=10&q=${search}&videoType=any&key=${DATA_API}`
+      `https://youtube-v31.p.rapidapi.com/search?q=${search}&part=snippet%2Cid&regionCode=US&maxResults=48&order=date`,
+      options
     );
     const json = await data.json();
     // console.log(json);
     setVideos(json?.items);
     setSearch("");
-    console.log(videos);
+    // console.log(videos);
   }
-  console.log(search);
+
+  // console.log(search);
   return (
-    <div className="bg-black min-h-[100vh]">
-      <div className="flex  justify-center items-center py-[30px]">
+    <div className="bg-black min-h-[90vh]">
+      <div className="flex  justify-center items-center py-[20px]">
         <input
           type="text"
           placeholder="Search Here"
           className="p-[10px] bg-gray-200 outline-none rounded-tl-sm rounded-bl-sm"
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
         />
 
         <button
@@ -63,7 +76,7 @@ export default function Body() {
         </button>
       </div>
       (
-      <div className="flex flex-wrap justify-center items-baseline gap-[25px] p-[30px]">
+      <div className="flex flex-wrap justify-center items-baseline gap-[25px] ">
         {videos?.map((item, index) => {
           return (
             <Link to={`/video/${item?.id?.videoId}`} key={index}>
