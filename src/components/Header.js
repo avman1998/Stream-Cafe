@@ -16,30 +16,30 @@ export default function Header() {
     }
   }
   return (
-    <div className="header flex bg-yellow-300 font-bold justify-between items-center p-[10px]  min-h-[10vh] ">
+    <div className="header flex bg-blue-400 font-bold justify-between items-center p-[10px]  min-h-[10vh] ">
       <Burger />
-      <h1 className="text-[110%] md:text-[150%] font-bold relative left-5 md:left-10 top-1">
+      <h1 className="text-[110%] md:text-[150%] font-bold relative left-5 md:left-10 top-1 text-white">
         Stream Cafe
       </h1>
       <div className=" flex gap-[5px] md:gap-[30px]">
         {user && <p className="bg-black text-[80%]">{user?.displayName}</p>}
         {!user && (
           <Link to="/signup">
-            <button className="px-[10px]  py-[5px]  rounded bg-black  text-yellow-300 text-[80%]">
+            <button className="px-[10px]  py-[5px]  rounded bg-white  text-blue-400 text-[80%]">
               Sign Up
             </button>
           </Link>
         )}
         {!user && (
           <Link to="/login">
-            <button className="px-[10px] py-[5px]  rounded bg-black  text-yellow-300 text-[80%]">
+            <button className="px-[10px] py-[5px]  rounded bg-white  text-blue-400 text-[80%]">
               Log In
             </button>
           </Link>
         )}
         {user && (
           <button
-            className="px-[10px] py-[5px]  rounded bg-black  text-yellow-300 text-[80%]"
+            className="px-[10px] py-[5px]  rounded bg-white  text-blue-400 text-[80%]"
             onClick={() => {
               handleLogOut();
             }}

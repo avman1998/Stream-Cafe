@@ -9,8 +9,8 @@ export default function Burger() {
         <i className="fa-solid fa-house-user mx-[10px]"></i> Home
       </Link>
 
-      <Link to="/playlists" id="about" className="menu-item my-[20px]">
-        <i className="fa-sharp fa-solid fa-list mx-[10px]"></i> Playlists
+      <Link to="/watchList" id="about" className="menu-item my-[20px]">
+        <i className="fa-sharp fa-solid fa-list mx-[10px]"></i> Watch-List
       </Link>
 
       <Link to="/history" id="contact" className="menu-item my-[20px]">

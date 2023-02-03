@@ -10,18 +10,60 @@ export default function VideoWatcher() {
   const { id } = useParams();
   const location = useLocation();
   const [videoData, setVideoData] = useState([]);
-
+  const [like, setLike] = useState(false);
+  const [isAddedToWatchList, setIsAddedToWatchList] = useState(false);
+  function doLike() {
+    if (like === false) {
+      setLike(true);
+    }
+  }
+  function AddedToWatchList() {
+    if (isAddedToWatchList === false) {
+      setIsAddedToWatchList(true);
+    }
+  }
+  console.log(videoData);
   // Storing History
   useEffect(() => {
-    async function setDataFun(e) {
-      if (user) {
-        await addDoc(collection(db, `${user?.email}`), {
-          url: location.pathname.slice(7),
-        });
+    if (videoData.length !== 0) {
+      async function setDataFun(e) {
+        if (user) {
+          await addDoc(collection(db, `${user?.email}-History`), {
+            url: videoData,
+          });
+        }
       }
+      setDataFun();
     }
-    setDataFun();
-  }, [user, location]);
+  }, [videoData]);
+
+  //Adding Liked Videos
+  useEffect(() => {
+    if (videoData.length !== 0) {
+      async function setDataFun(e) {
+        if (user) {
+          await addDoc(collection(db, `${user?.email}-Like`), {
+            url: videoData,
+          });
+        }
+      }
+      setDataFun();
+    }
+  }, [like]);
+
+  //Adding to Watch-List
+  useEffect(() => {
+    if (videoData.length !== 0) {
+      async function setDataFun(e) {
+        if (user) {
+          await addDoc(collection(db, `${user?.email}-WatchList`), {
+            url: videoData,
+          });
+        }
+      }
+      setDataFun();
+    }
+  }, [isAddedToWatchList]);
 
   const options = {
     method: "GET",
@@ -54,19 +96,26 @@ export default function VideoWatcher() {
         className="react-player object-cover "
         controls
         width="100%"
+        playing={true}
         url={`https://www.youtube.com/watch?v=${id}`}
       />
 
       <h1 className="font-bold mt-[30px] text-[140%]  text-white mx-[10px] text-center">
         {videoData[0]?.snippet?.title}
       </h1>
-      <div className="cursor-pointer mt-[70px] md:mt-[10px] text-[150%] flex  gap-[20px]">
-        <div className="flex items-baseline font-bold gap-[10px]">
+      <div className="cursor-pointer mt-[70px] md:mt-[10px] text-[120%] flex  gap-[20px]">
+        <div
+          onClick={() => doLike()}
+          className="flex items-baseline font-bold gap-[10px]"
+        >
           <p className="text-white ">Like</p>{" "}
           <i className="text-white  fa-solid fa-thumbs-up"></i>
         </div>{" "}
-        <div className=" cursor-pointer flex items-baseline font-bold gap-[10px]">
-          <p className="text-white ">Add to Playlist</p>
+        <div
+          onClick={() => AddedToWatchList()}
+          className=" cursor-pointer flex items-baseline font-bold gap-[10px]"
+        >
+          <p className="text-white ">Add to WatchList</p>
           <i className="text-white  fa-sharp fa-solid fa-list mx-[10px]"></i>
         </div>
       </div>

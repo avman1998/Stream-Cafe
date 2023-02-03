@@ -8,7 +8,7 @@ export const burgerStyle = {
     top: "15px",
   },
   bmBurgerBars: {
-    background: "Black",
+    background: "White",
   },
   bmBurgerBarsHover: {
     background: "#13B8F2",
@@ -18,7 +18,7 @@ export const burgerStyle = {
     width: "35px",
   },
   bmCross: {
-    background: "#FFFFFF",
+    background: "#60a5fa",
   },
   bmMenuWrap: {
     position: "fixed",
@@ -27,7 +27,7 @@ export const burgerStyle = {
     left: "0px",
   },
   bmMenu: {
-    background: "black",
+    background: "White",
     padding: "2.5em 1.5em 0",
     fontSize: "1.15em",
   },
@@ -35,7 +35,7 @@ export const burgerStyle = {
     fill: "#373a47",
   },
   bmItemList: {
-    color: "white",
+    color: "#60a5fa",
     padding: "0.8em",
   },
   bmItem: {
@@ -45,3 +45,27 @@ export const burgerStyle = {
     background: "rgba(0, 0, 0, 0)",
   },
 };
+export function removeDuplicates(arr) {
+  // Declare a new array
+  let newArray = [];
+
+  // Declare an empty object
+  let uniqueObject = {};
+
+  // Loop for the array elements
+  for (let i in arr) {
+    // Extract the title
+    let objTitle = arr[i]["id"];
+
+    // Use the title as the index
+    uniqueObject[objTitle] = arr[i];
+  }
+
+  // Loop to push unique object into array
+  for (let i in uniqueObject) {
+    newArray.push(uniqueObject[i]);
+  }
+
+  // Return newArray
+  return newArray;
+}

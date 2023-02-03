@@ -2,7 +2,7 @@ import Header from "./components/Header";
 import Body from "./components/Body";
 import History from "./components/History";
 import LikedVideos from "./components/likedvideos";
-import Playlist from "./components/Playlist";
+import WatchList from "./components/WatchList";
 import VideoWatcher from "./components/VideoWatcher";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
@@ -14,8 +14,8 @@ export const appRouter = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "/playlists",
-        element: <Playlist />,
+        path: "/watchList",
+        element: <WatchList />,
       },
       {
         path: "/history",
