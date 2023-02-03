@@ -16,7 +16,7 @@ export default function Header() {
     }
   }
   return (
-    <div className="header flex bg-blue-400 font-bold justify-between items-center p-[10px]  min-h-[10vh] ">
+    <div className="header flex  font-bold justify-between items-center p-[10px]  min-h-[10vh] ">
       <Burger />
       <h1 className="text-[110%] md:text-[150%] font-bold relative left-5 md:left-10 top-1 text-white">
         Stream Cafe
@@ -25,21 +25,21 @@ export default function Header() {
         {user && <p className="bg-black text-[80%]">{user?.displayName}</p>}
         {!user && (
           <Link to="/signup">
-            <button className="px-[10px]  py-[5px]  rounded bg-white  text-blue-400 text-[80%]">
+            <button className="px-[10px]  py-[5px]  rounded transparent  text-white text-[80%]">
               Sign Up
             </button>
           </Link>
         )}
         {!user && (
           <Link to="/login">
-            <button className="px-[10px] py-[5px]  rounded bg-white  text-blue-400 text-[80%]">
+            <button className="px-[10px] py-[5px]  rounded transparent text-white text-[80%]">
               Log In
             </button>
           </Link>
         )}
         {user && (
           <button
-            className="px-[10px] py-[5px]  rounded bg-white  text-blue-400 text-[80%]"
+            className="px-[10px] py-[5px]  rounded text-white   text-[80%]"
             onClick={() => {
               handleLogOut();
             }}

@@ -91,7 +91,7 @@ export default function VideoWatcher() {
   return videoData.length === 0 ? (
     <Loader />
   ) : (
-    <div className=" flex flex-col  justify-start items-center  bg-black gap-[20px] min-h-[90vh]">
+    <div className=" flex flex-col  justify-start items-center   gap-[20px] min-h-[90vh]">
       <ReactPlayer
         className="react-player object-cover "
         controls

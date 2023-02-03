@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { query, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { removeDuplicates } from "../config";
 export function LikedVideosCard({ item }) {
   return (
@@ -12,7 +12,7 @@ export function LikedVideosCard({ item }) {
         alt="poster"
         className="w-[100%] object-cover max-h-[250px] transition ease-in-out delay-150 hover:-translate-3 hover:scale-110 duration-300 "
       />
-      <p className="text-gray-800 font-bold md:text-[70%] my-[10px] m-[5px]">
+      <p className="text-white leading-[28px] font-bold md:text-[70%] my-[10px] m-[5px]">
         {item?.snippet?.title}
       </p>
     </div>
@@ -21,6 +21,7 @@ export function LikedVideosCard({ item }) {
 export default function LikedVideos() {
   const { user } = UserAuth();
   const [likedVideos, setLikedVideos] = useState([]);
+
   useEffect(() => {
     const q = query(collection(db, `${user?.email}-Like`));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
@@ -36,7 +37,7 @@ export default function LikedVideos() {
   console.log("LikedVideos", likedVideos);
 
   return (
-    <div className="flex flex-wrap min-h-[90vh] bg-white py-[20px] justify-center items-baseline gap-[25px]">
+    <div className="flex flex-wrap min-h-[90vh]  py-[20px] justify-center items-baseline gap-[25px]">
       {likedVideos?.map((item, index) => {
         return (
           <Link to={`/video/${item?.id}`} key={index}>

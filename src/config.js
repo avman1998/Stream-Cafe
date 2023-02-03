@@ -18,7 +18,7 @@ export const burgerStyle = {
     width: "35px",
   },
   bmCross: {
-    background: "#60a5fa",
+    background: "White",
   },
   bmMenuWrap: {
     position: "fixed",
@@ -27,7 +27,7 @@ export const burgerStyle = {
     left: "0px",
   },
   bmMenu: {
-    background: "White",
+    background: "#21354e",
     padding: "2.5em 1.5em 0",
     fontSize: "1.15em",
   },
@@ -35,7 +35,7 @@ export const burgerStyle = {
     fill: "#373a47",
   },
   bmItemList: {
-    color: "#60a5fa",
+    color: "White",
     padding: "0.8em",
   },
   bmItem: {

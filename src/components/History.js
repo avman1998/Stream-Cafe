@@ -5,6 +5,7 @@ import { db } from "../firebase";
 import { VideoCard } from "./Body";
 import { Link } from "react-router-dom";
 import { removeDuplicates } from "../config";
+import Loader from "./Loader";
 export function HistoryCard({ item }) {
   return (
     <div className="cursor-pointer md:max-w-[250px] rounded-full">
@@ -13,7 +14,7 @@ export function HistoryCard({ item }) {
         alt="poster"
         className="w-[100%] object-cover max-h-[250px] transition ease-in-out delay-150 hover:-translate-3 hover:scale-110 duration-300 "
       />
-      <p className="text-gray-800 font-bold md:text-[70%] my-[10px] m-[5px]">
+      <p className="text-white leading-[28px] font-bold md:text-[70%] my-[10px] m-[5px]">
         {item?.snippet?.title}
       </p>
     </div>
@@ -34,8 +35,10 @@ export default function History() {
     return () => unsubscribe();
   }, [user?.email]);
   console.log(history);
-  return (
-    <div className="flex flex-wrap min-h-[90vh] bg-white py-[20px] justify-center items-baseline gap-[25px]">
+  return history.length === 0 ? (
+    <Loader />
+  ) : (
+    <div className="flex flex-wrap min-h-[90vh]  py-[20px] justify-center items-baseline gap-[25px]">
       {history?.map((item, index) => {
         return (
           <Link to={`/video/${item?.id}`} key={index}>

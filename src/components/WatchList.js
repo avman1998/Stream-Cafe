@@ -17,7 +17,7 @@ export function WatchListCard({ item, index }) {
         alt="poster"
         className="w-[100%] object-cover max-h-[250px] transition ease-in-out delay-150 hover:-translate-3 hover:scale-110 duration-300 "
       />
-      <p className="text-gray-800 font-bold md:text-[70%] my-[10px] m-[5px]">
+      <p className="text-white leading-[28px] font-bold md:text-[70%] my-[10px] m-[5px]">
         {item?.url[0].snippet?.title}
       </p>
       <div className="flex justify-between">
@@ -54,7 +54,7 @@ export default function WatchList() {
   console.log("Watch Videos", watchListVideos);
 
   return (
-    <div className="flex flex-wrap min-h-[90vh] bg-white py-[20px] justify-center items-baseline gap-[25px]">
+    <div className="flex flex-wrap min-h-[90vh]  py-[20px] justify-center items-baseline gap-[25px]">
       {watchListVideos?.map((item, index) => {
         return <WatchListCard item={item} index={index} />;
       })}
