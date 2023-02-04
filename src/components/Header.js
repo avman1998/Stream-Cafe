@@ -21,7 +21,7 @@ export default function Header() {
       <h1 className="text-[110%] md:text-[150%] font-bold relative left-5 md:left-10 top-1 text-white">
         Stream Cafe
       </h1>
-      <div className=" flex gap-[5px] md:gap-[30px]">
+      <div className=" mt-[10px] flex gap-[5px] md:gap-[30px]">
         {user && <p className="bg-black text-[80%]">{user?.displayName}</p>}
         {!user && (
           <Link to="/signup">
@@ -38,14 +38,17 @@ export default function Header() {
           </Link>
         )}
         {user && (
-          <button
-            className="px-[10px] py-[5px]  rounded text-white   text-[80%]"
-            onClick={() => {
-              handleLogOut();
-            }}
-          >
-            Sign Out
-          </button>
+          <div className="flex gap-[10px]">
+            <i className="fa-solid fa-user text-white"></i>
+            <button
+              className="px-[10px] py-[5px]  rounded text-white   text-[80%]"
+              onClick={() => {
+                handleLogOut();
+              }}
+            >
+              Sign Out
+            </button>
+          </div>
         )}
       </div>
     </div>

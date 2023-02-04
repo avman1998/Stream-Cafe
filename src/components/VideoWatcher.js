@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 import { query, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
@@ -8,6 +9,7 @@ import { removeDuplicates } from "../config";
 import Loader from "./Loader";
 import ReactPlayer from "react-player";
 export default function VideoWatcher() {
+  const isBigScreen = useMediaQuery({ query: "(min-width: 768px)" });
   const { user } = UserAuth();
   const { id } = useParams();
   const location = useLocation();
@@ -39,6 +41,7 @@ export default function VideoWatcher() {
     });
     return () => unsubscribe();
   }, [user?.email]);
+  console.log("isAddedToWatchList", isAddedToWatchList);
   console.log("WatchListIds", watchListIds);
   if (!watchListIds) return null;
 
@@ -112,11 +115,11 @@ export default function VideoWatcher() {
   return videoData.length === 0 ? (
     <Loader />
   ) : (
-    <div className=" flex flex-col  justify-start items-center   gap-[20px] min-h-[90vh]">
+    <div className=" flex flex-col  justify-start items-center  mt-[30px] gap-[20px] min-h-[90vh]">
       <ReactPlayer
         className="react-player object-cover "
         controls
-        width="100%"
+        width={isBigScreen ? "640px" : "100%"}
         playing={true}
         url={`https://www.youtube.com/watch?v=${id}`}
       />
@@ -129,14 +132,16 @@ export default function VideoWatcher() {
           onClick={() => doLike()}
           className="flex items-baseline font-bold gap-[10px]"
         >
-          <p className="text-white ">Like</p>{" "}
+          <p className="text-white ">{!like ? "like" : "Liked"}</p>{" "}
           <i className="text-white  fa-solid fa-thumbs-up"></i>
         </div>{" "}
         <div
           onClick={() => AddedToWatchList()}
           className=" cursor-pointer flex items-baseline font-bold gap-[10px]"
         >
-          <p className="text-white ">Add to WatchList</p>
+          <p className="text-white ">
+            {!isAddedToWatchList ? "Add to Watch List" : "Added to Watch List"}
+          </p>
           <i className="text-white  fa-sharp fa-solid fa-list mx-[10px]"></i>
         </div>
       </div>
