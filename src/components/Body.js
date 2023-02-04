@@ -51,7 +51,7 @@ export default function Body() {
   }
 
   // console.log(search);
-  if (!videos) return null;
+  // if (!videos) return null;
   return (
     <div className=" min-h-[90vh]">
       <div className="flex justify-center items-center py-[40px]">
