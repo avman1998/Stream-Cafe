@@ -39,19 +39,19 @@ export default function Body() {
   }, []);
 
   async function getVideos() {
-    if (search !== "") {
-      const data = await fetch(
-        `https://youtube-v31.p.rapidapi.com/search?q=${search}&part=snippet%2Cid&regionCode=US&maxResults=48&order=date`,
-        options
-      );
-      const json = await data.json();
-      setVideos(json?.items);
-      setSearch("");
-    }
+    const data = await fetch(
+      `https://youtube-v31.p.rapidapi.com/search?q=${search}&part=snippet%2Cid&regionCode=US&maxResults=48&order=date`,
+      options
+    );
+    const json = await data.json();
+    setVideos(json?.items);
+    setSearch("");
+
     // console.log(videos);
   }
 
   // console.log(search);
+  if (!videos) return null;
   return (
     <div className=" min-h-[90vh]">
       <div className="flex justify-center items-center py-[40px]">
@@ -72,7 +72,7 @@ export default function Body() {
           <i className="fa-solid fa-magnifying-glass text-white"></i>
         </button>
       </div>
-      {videos.length === 0 ? (
+      {videos?.length === 0 ? (
         <Loader />
       ) : (
         <div className="flex flex-wrap justify-center items-baseline gap-[25px] ">
