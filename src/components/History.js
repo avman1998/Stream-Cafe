@@ -38,14 +38,19 @@ export default function History() {
   return history.length === 0 ? (
     <Loader />
   ) : (
-    <div className="flex flex-wrap min-h-[90vh]  py-[20px] justify-center items-baseline gap-[25px]">
-      {history?.map((item, index) => {
-        return (
-          <Link to={`/video/${item?.id}`} key={index}>
-            <HistoryCard item={item} />
-          </Link>
-        );
-      })}
+    <div className="flex flex-col justify-center items-center gap-[20px]">
+      <h1 className="header text-white text-[130%] bg-bodyColor px-[30px] py-[10px] shadow-xl mt-[20px]">
+        History
+      </h1>
+      <div className="flex flex-wrap min-h-[90vh]  py-[20px] justify-center items-baseline gap-[25px]">
+        {history?.map((item, index) => {
+          return (
+            <Link to={`/video/${item?.id}`} key={index}>
+              <HistoryCard item={item} />
+            </Link>
+          );
+        })}
+      </div>
     </div>
   );
 }

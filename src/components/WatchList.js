@@ -2,35 +2,42 @@ import React, { useState, useEffect } from "react";
 import { UserAuth } from "../context/AuthContext";
 import { query, collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { removeDuplicates } from "../config";
 import { doc, deleteDoc } from "firebase/firestore";
+import Loader from "./Loader";
 export function WatchListCard({ item, index }) {
   const { user } = UserAuth();
+  const navigate = useNavigate();
+  console.log("navigate", navigate);
+  useEffect(() => {
+    if (user == null) navigate("/login");
+  });
   async function del() {
     await deleteDoc(doc(db, `${user?.email}-WatchList`, `${item.id}`));
   }
   return (
-    <div className="cursor-pointer md:max-w-[250px] rounded-full">
+    <div className="flex  items-center  flex-col m-[0px] justify-center gap-[10px] md:ml-[40px] ">
       <img
+        alt="img"
         src={item?.url[0].snippet?.thumbnails?.medium?.url}
-        alt="poster"
-        className="w-[100%] object-cover max-h-[250px] transition ease-in-out delay-150 hover:-translate-3 hover:scale-110 duration-300 "
+        className="rounded-md md:h-[200px] w-[100%] mt-[20px] justify-center items-center md:ml-[17px]  object-cover transition ease-in-out delay-150 hover:-translate-3 hover:scale-110 duration-300 cursor-pointer"
       />
-      <p className="text-white leading-[28px] font-bold md:text-[70%] my-[10px] m-[5px]">
+      <h1 className="flex overflow-hidden text-lg w-[250px] truncate font-bold mt-[5px] text-white ">
         {item?.url[0].snippet?.title}
-      </p>
-      <div className="flex justify-between">
-        <Link to={`/video/${item?.id}`}>
-          <button className="text-[60%] p-[5px] bg-blue-100 rounded hover:bg-green-500 hover:text-white">
-            Play Video
+      </h1>
+
+      <div className="flex gap-[10px]">
+        <Link to={`/video/${item?.url[0].id}`}>
+          <button className=" p-[10px] text-white bg-bodyColor font-bold shadow-xl rounded">
+            Play
           </button>
         </Link>
         <button
-          className="text-[60%] p-[5px] bg-blue-100 rounded hover:bg-red-500 hover:text-white"
+          className=" p-[10px]  text-white bg-bodyColor font-bold shadow-xl rounded"
           onClick={() => del()}
         >
-          Remove from Watch-List
+          Remove from WatchList
         </button>
       </div>
     </div>
@@ -53,11 +60,18 @@ export default function WatchList() {
   }, [user?.email]);
   console.log("Watch Videos", watchListVideos);
 
-  return (
-    <div className="flex flex-wrap min-h-[90vh]  py-[20px] justify-center items-baseline gap-[25px]">
-      {watchListVideos?.map((item, index) => {
-        return <WatchListCard item={item} index={index} />;
-      })}
+  return watchListVideos.length === 0 ? (
+    <Loader />
+  ) : (
+    <div className="flex flex-col justify-center items-center gap-[20px]">
+      <h1 className="header text-white text-[130%] bg-bodyColor px-[30px] py-[10px] shadow-xl mt-[20px]">
+        Watch List
+      </h1>
+      <div className="flex flex-wrap min-h-[90vh]  py-[20px] justify-center items-baseline gap-[25px]">
+        {watchListVideos?.map((item, index) => {
+          return <WatchListCard item={item} index={index} />;
+        })}
+      </div>
     </div>
   );
 }

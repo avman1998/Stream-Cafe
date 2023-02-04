@@ -16,7 +16,7 @@ export default function Header() {
     }
   }
   return (
-    <div className="header flex  font-bold justify-between items-center p-[10px]  min-h-[10vh] ">
+    <div className="header shadow-xl flex  font-bold justify-between items-center p-[10px]  min-h-[10vh] ">
       <Burger />
       <h1 className="text-[110%] md:text-[150%] font-bold relative left-5 md:left-10 top-1 text-white">
         Stream Cafe

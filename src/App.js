@@ -6,6 +6,7 @@ import WatchList from "./components/WatchList";
 import VideoWatcher from "./components/VideoWatcher";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import Protected from "./components/Protected";
 import { AuthContextProvider } from "./context/AuthContext";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 export const appRouter = createBrowserRouter([
@@ -15,15 +16,27 @@ export const appRouter = createBrowserRouter([
     children: [
       {
         path: "/watchList",
-        element: <WatchList />,
+        element: (
+          <Protected>
+            <WatchList />
+          </Protected>
+        ),
       },
       {
         path: "/history",
-        element: <History />,
+        element: (
+          <Protected>
+            <History />
+          </Protected>
+        ),
       },
       {
         path: "/liked-vidoes",
-        element: <LikedVideos />,
+        element: (
+          <Protected>
+            <LikedVideos />
+          </Protected>
+        ),
       },
       {
         path: "/",

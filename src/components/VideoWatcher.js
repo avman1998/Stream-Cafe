@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
+import { query, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
+import { removeDuplicates } from "../config";
 import Loader from "./Loader";
 import ReactPlayer from "react-player";
 export default function VideoWatcher() {
@@ -12,17 +14,36 @@ export default function VideoWatcher() {
   const [videoData, setVideoData] = useState([]);
   const [like, setLike] = useState(false);
   const [isAddedToWatchList, setIsAddedToWatchList] = useState(false);
+  const [watchListIds, setWatchListIds] = useState([]);
   function doLike() {
     if (like === false) {
       setLike(true);
     }
   }
   function AddedToWatchList() {
-    if (isAddedToWatchList === false) {
+    const idOfVideo = location.pathname.slice(7);
+    if (!newWatchListIDs.includes(idOfVideo)) {
       setIsAddedToWatchList(true);
     }
   }
   console.log(videoData);
+  useEffect(() => {
+    const q = query(collection(db, `${user?.email}-WatchList`));
+    const unsubscribe = onSnapshot(q, (querySnapshot) => {
+      let data = [];
+      querySnapshot.forEach((doc) => {
+        data.push({ ...doc.data() });
+      });
+
+      setWatchListIds(data);
+    });
+    return () => unsubscribe();
+  }, [user?.email]);
+  console.log("WatchListIds", watchListIds);
+  if (!watchListIds) return null;
+
+  const newWatchListIDs = watchListIds?.map((item) => item?.url?.[0].id);
+  console.log("newWatchListIDs", newWatchListIDs);
   // Storing History
   useEffect(() => {
     if (videoData.length !== 0) {
