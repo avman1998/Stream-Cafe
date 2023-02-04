@@ -28,7 +28,7 @@ export default function Body() {
   useEffect(() => {
     async function getVideos() {
       const data = await fetch(
-        `https://youtube-v31.p.rapidapi.com/search?q=ps4&part=snippet%2Cid&regionCode=US&maxResults=48&order=date`,
+        `https://youtube-v31.p.rapidapi.com/search?q=books&part=snippet%2Cid&regionCode=US&maxResults=48&order=date`,
         options
       );
       const json = await data.json();
@@ -39,13 +39,15 @@ export default function Body() {
   }, []);
 
   async function getVideos() {
-    const data = await fetch(
-      `https://youtube-v31.p.rapidapi.com/search?q=${search}&part=snippet%2Cid&regionCode=US&maxResults=48&order=date`,
-      options
-    );
-    const json = await data.json();
-    setVideos(json?.items);
-    setSearch("");
+    if (search !== "") {
+      const data = await fetch(
+        `https://youtube-v31.p.rapidapi.com/search?q=${search}&part=snippet%2Cid&regionCode=US&maxResults=48&order=date`,
+        options
+      );
+      const json = await data.json();
+      setVideos(json?.items);
+      setSearch("");
+    }
     // console.log(videos);
   }
 

@@ -6,9 +6,11 @@ import { db } from "../firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { UserAuth } from "../context/AuthContext";
 import { removeDuplicates } from "../config";
+import { useNavigate } from "react-router-dom";
 import Loader from "./Loader";
 import ReactPlayer from "react-player";
 export default function VideoWatcher() {
+  const navigate = useNavigate();
   const isBigScreen = useMediaQuery({ query: "(min-width: 768px)" });
   const { user } = UserAuth();
   const { id } = useParams();
@@ -18,11 +20,17 @@ export default function VideoWatcher() {
   const [isAddedToWatchList, setIsAddedToWatchList] = useState(false);
   const [watchListIds, setWatchListIds] = useState([]);
   function doLike() {
+    if (user === null) {
+      navigate("/login");
+    }
     if (like === false) {
       setLike(true);
     }
   }
   function AddedToWatchList() {
+    if (user === null) {
+      navigate("/login");
+    }
     const idOfVideo = location.pathname.slice(7);
     if (!newWatchListIDs.includes(idOfVideo)) {
       setIsAddedToWatchList(true);
